@@ -1,5 +1,5 @@
 <?php
-header("Content-Type:application/json");
+// header("Content-Type:application/json");
 
 // using :
 include_once
@@ -58,9 +58,20 @@ function response($status, $status_message, $data)
     header("HTTP/1.1 " . $status);
     $response['status'] = $status;
     $response['status_message'] = $status_message;
-    $response['data'] = $data;
+    if($status == 200){
+        $response['data'] = $data;
+    }
     $json_response = json_encode($response);
     echo $json_response;
 }
+?>
+<form action="" method="post">
 
+<input name="username" type="text">
+<input name="mail" type="text">
+<input name="pwd" type="text">
+<input name="pwd_repeat" type="text">
+
+<button type="submit">SUBMIT</button>
+</form>
 
