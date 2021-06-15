@@ -65,7 +65,7 @@ function response($status, $status_message, $data)
     echo $json_response;
 }
 ?>
-<form action="" method="post">
+<!-- <form action="" method="post">
 
 <input name="username" type="text">
 <input name="mail" type="text">
@@ -73,5 +73,5 @@ function response($status, $status_message, $data)
 <input name="pwd_repeat" type="text">
 
 <button type="submit">SUBMIT</button>
-</form>
+</form> -->
 
