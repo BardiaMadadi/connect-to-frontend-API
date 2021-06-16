@@ -13,14 +13,12 @@ if (isset($_POST['username']) && isset($_POST['mail']) && isset($_POST['pwd']) &
     $Username     = safe_normal_input($_POST['username']);
     $mail         = safe_normal_input($_POST['mail']);
     $pwd          = hashing(safe_pwd($_POST['pwd']), $Username);
-    $pwd_repeat   = hashing(safe_pwd($_POST['pwd_repeat']), $Username);
 
     // if connect :
     if ($conn) {
-        if (!empty($Username) && !empty($mail) && !empty($pwd) && !empty($pwd_repeat)) {
+        if (!empty($Username) && !empty($mail) && !empty($pwd)) {
 
-            if ($pwd == $pwd_repeat) {
-                $query = "SELECT * FROM `users` WHERE u_name = '$Username' AND u_email = '$mail' AND pwd = '$pwd' ";
+                $query = "SELECT * FROM `users` WHERE u_name = '$Username' OR u_email = '$mail'";
                 $rows_len = mysqli_num_rows(mysqli_query($conn, $query));
                 if ($rows_len == 0) {
                     $query = "INSERT INTO `users` (`u_name`, `u_email`, `pwd`) VALUES ('$Username', '$mail', '$pwd')";
@@ -36,16 +34,8 @@ if (isset($_POST['username']) && isset($_POST['mail']) && isset($_POST['pwd']) &
 
                     response(400, "there is account with that info", null);
                 }
-            } else {
-                // pwd and pwd repeat dose not match
-
-                response(400, "pwd and pwd repeat dose not match", null);
             }
-        } else {
-            //inputs are empty
 
-            response(400, "inputs are empty", null);
-        }
     } else {
         //can not connect to server
 
@@ -65,13 +55,3 @@ function response($status, $status_message, $data)
     echo $json_response;
 }
 ?>
-<!-- <form action="" method="post">
-
-<input name="username" type="text">
-<input name="mail" type="text">
-<input name="pwd" type="text">
-<input name="pwd_repeat" type="text">
-
-<button type="submit">SUBMIT</button>
-</form> -->
-
