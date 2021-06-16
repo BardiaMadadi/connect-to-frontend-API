@@ -1,5 +1,5 @@
 <?php
-// header("Content-Type:application/json");
+header("Content-Type:application/json");
 
 // using :
 include_once
@@ -35,19 +35,16 @@ if (isset($_POST['username']) && isset($_POST['mail']) && isset($_POST['pwd'])) 
 
         else {
 
-            response(400, "there is account with that info", null);
+            response(250, "there is account with that info", null);
         }
     }
     //else if can not connect to server
     else {
         //can not connect to server
 
-        response(400, "can not connect to server", null);
+        response(250, "can not connect to server", null);
     }
-}else{
-    echo 'shit';
 }
-
 function response($status, $status_message, $data)
 {
     header("HTTP/1.1 " . $status);
@@ -59,3 +56,10 @@ function response($status, $status_message, $data)
     $json_response = json_encode($response);
     echo $json_response;
 }
+?>
+<form action="" method="post">
+<input name="username" type="text">
+<input name="mail" type="text">
+<input name="pwd" type="text">
+<button type="submit">SUBMIT</button>
+</form>
