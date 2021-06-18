@@ -16,7 +16,7 @@ if (isset($_POST['mail']) && isset($_POST['pwd'])) {
         //when connected to server
 
         // select user with that mail
-        $query = "SELECT * FROM `users` WHERE u_email = '$mail' u_pwd = '$pwd'";
+        $query = "SELECT * FROM `users` WHERE u_email = '$mail' AND u_pwd = '$pwd'";
         // return number of users with that info
         $num_row = mysqli_num_rows(mysqli_query($conn, $query));
         if ($num_row > 0) {
@@ -25,7 +25,7 @@ if (isset($_POST['mail']) && isset($_POST['pwd'])) {
 
 
 
-                $query = "SELECT * FROM `users` WHERE u_email = '$mail' LIMIT 1";
+                $query = "SELECT * FROM `users` WHERE u_email = '$mail' AND u_pwd = '$pwd' LIMIT 1";
                 // return number of users with that info
                 //
                 $user_info = mysqli_fetch_array(mysqli_query($conn, $query), MYSQLI_ASSOC);
