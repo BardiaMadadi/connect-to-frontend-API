@@ -17,6 +17,7 @@ class post
     function post()
     {
         include_once '../conf/db.php';
+        include_once '../functions/add_post.php';
         $post_img = $this->post_img;
         $post_title = $this->post_title;
         $post_body = $this->post_body;
@@ -39,13 +40,5 @@ class post
         }
     }
 
-    //response
-    function response($status, $status_message, $data)
-    {
-        header("HTTP/1.1 " . $status);
-        $response['status'] = $status;
-        $response['status_message'] = $status_message;
-        $json_response = json_encode($response);
-        echo $json_response;
-    }
+
 }
