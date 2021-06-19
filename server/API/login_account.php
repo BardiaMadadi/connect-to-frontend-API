@@ -14,25 +14,30 @@ if (isset($_POST['mail']) && isset($_POST['pwd'])) {
     $pwd = safe_pwd($_POST['pwd']);
     if ($conn) {
         //when connected to server
+        if (!empty($mail) && !empty($pwd)) {
+            // select user with that mail
+            $query = "SELECT * FROM `users` WHERE u_email = '$mail' LIMIT 1";
+            // return number of users with that info
+            $num_row = mysqli_num_rows(mysqli_query($conn, $query));
+            $user = mysqli_query($conn, $query);
+            $user_info = mysqli_fetch_array($user,MYSQLI_ASSOC);
+            if ($num_row == 1) {
 
-        // select user with that mail
-        $query = "SELECT * FROM `users` WHERE u_email = '$mail' AND u_pwd = '$pwd' LIMIT 1";
-        // return number of users with that info
-        $num_row = mysqli_num_rows(mysqli_query($conn, $query));
 
-
-        $user_info = mysqli_fetch_array(mysqli_query($conn, $query), MYSQLI_ASSOC);
-
-        if (hashing($pwd, $user_info['u_name']) == $user_info['pwd']) {
-            //if pwd match
-            //
-            $data['id'] = $user_info['id'];
-            $data['username'] = $user_info['u_name'];
-            $data['email'] = $user_info['u_email'];
-            response(200, "User found", $data);
-        } else {
-            //pwd dose  not match
-            response(250, "password dose not match", null);
+                if (hashing($pwd, $user_info['u_name']) == $user_info['pwd']) {
+                    //if pwd match
+                    //
+                    $data['id'] = $user_info['id'];
+                    $data['username'] = $user_info['u_name'];
+                    $data['email'] = $user_info['u_email'];
+                    response(200, "User found", $data);
+                } else {
+                    //pwd dose  not match
+                    response(250, "password dose not match", null);
+                }
+            }else{
+                response(250,"User not foun", null);
+            }
         }
     }
 }
