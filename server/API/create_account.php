@@ -56,10 +56,4 @@ function response($status, $status_message, $data)
     $json_response = json_encode($response);
     echo $json_response;
 }
-?>
-<form action="" method="post">
-<input name="username" type="text">
-<input name="mail" type="text">
-<input name="pwd" type="text">
-<button type="submit">SUBMIT</button>
-</form>
+
