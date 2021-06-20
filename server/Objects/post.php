@@ -29,7 +29,10 @@ class post
             $post = "SELECT * FROM `posts` WHERE `post_body`='$post_body' OR `post_title`='$post_title' OR `post_img`= '$post_img'";
             $post_num = mysqli_num_rows(mysqli_query($conn, $post));
             if ($post_num == 0) {
-                $query = "INSERT INTO `posts`(`post_img`, `post_title`, `post_body`, `user_id`) VALUES ('$post_img','$post_title','$post_body','$user_id')";
+                require_once '../functions/jdf.php';
+                $num_date = jdate('Y/m/d');
+                $date = jdate('J F V');
+                $query = "INSERT INTO `posts`(`post_img`, `post_title`, `post_body`, `num_date`, `date`, `user_id`) VALUES ('$post_img','$post_title','$post_body','$num_date','$date','$user_id')";
                 mysqli_query($conn, $query);
                 response(200, "Post created", null);
             } else {
