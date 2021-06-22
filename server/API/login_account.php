@@ -20,10 +20,12 @@ if (isset($_POST['mail']) && isset($_POST['pwd'])) {
             // return number of users with that info
             $num_row = mysqli_num_rows(mysqli_query($conn, $query));
             $user = mysqli_query($conn, $query);
+            //get user info
             $user_info = mysqli_fetch_array($user,MYSQLI_ASSOC);
+            //if just there is 1 user with that info in server
             if ($num_row == 1) {
 
-
+                //if hashed input pwd = user pwd
                 if (hashing($pwd, $user_info['u_name']) == $user_info['pwd']) {
                     //if pwd match
                     //
@@ -36,6 +38,7 @@ if (isset($_POST['mail']) && isset($_POST['pwd'])) {
                     response(250, "password dose not match", null);
                 }
             }else{
+                //if user not found
                 response(250,"User not foun", null);
             }
         }
