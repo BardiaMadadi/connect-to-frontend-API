@@ -51,7 +51,10 @@ function response($status, $status_message, $data)
     $response['status'] = $status;
     $response['status_message'] = $status_message;
     if ($status == 200) {
-        $response['data'] = $data;
+        $response['id'] = $data['id'];
+        $response['username'] = $data['username'];
+        $response['mail'] = $data['email'];
+
     }
     $json_response = json_encode($response);
     echo $json_response;

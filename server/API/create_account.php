@@ -27,8 +27,10 @@ if (isset($_POST['username']) && isset($_POST['mail']) && isset($_POST['pwd'])) 
             $query = "INSERT INTO `users` (`u_name`, `u_email`, `pwd`) VALUES ('$Username', '$mail', '$pwd')";
 
             mysqli_query($conn, $query);
-            $response_data = array('username' => $Username,'mail' => $mail,'pwd' => $pwd);
-            response(200, "User Created", $response_data);
+            $id = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `users` WHERE `u_name`='$Username' AND `u_email`='$mail'"),MYSQLI_ASSOC) ;
+            $data['id'] = $id['id'];
+            $data['username'] = $Username;
+            response(200, "User Created", $data);
         }
 
         // else if there is user with that username and that password
@@ -51,9 +53,9 @@ function response($status, $status_message, $data)
     $response['status'] = $status;
     $response['status_message'] = $status_message;
     if ($status == 200) {
-        $response['data'] = $data;
+        $response['id'] = $data['id'];
+        $response['username'] = $data['username'];
     }
     $json_response = json_encode($response);
     echo $json_response;
 }
-
